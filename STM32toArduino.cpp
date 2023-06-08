@@ -1,3 +1,4 @@
+#include "stm32f10x.h"
 #include "STM32toArduinoHeader.h"                 // Device header
 
 void PinMode(uint16_t pinNumber, uint16_t pinMode){
