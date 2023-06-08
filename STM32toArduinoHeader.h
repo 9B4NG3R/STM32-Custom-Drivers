@@ -1,4 +1,5 @@
 
+
 #ifndef stm32f103C8_h
 #define stm32f103C8_h
 
@@ -54,31 +55,31 @@ typedef enum
 #define A15 0x0f
 
 //----------------------Port B CRL Pinout--------------
-#define B0 0x10
-#define B1 0x11
-#define B2 0x12
-#define B3 0x13
-#define B4 0x14
-#define B5 0x15
-#define B6 0x16
-#define B7 0x17
+#define B0 0x00
+#define B1 0x01
+#define B2 0x02
+#define B3 0x03
+#define B4 0x04
+#define B5 0x05
+#define B6 0x06
+#define B7 0x07
 
 //------------------------Port B CRH Pinout--------------
 
-#define B8 0x18
-#define B9 0x19
-#define B10 0x1a
-#define B11 0x1b
-#define B12 0x1c
-#define BA13 0x1d
-#define B14 0x1e
-#define B15 0x1f
+#define B8 0x08
+#define B9 0x09
+#define B10 0x0a
+#define B11 0x0b
+#define B12 0x0c
+#define BA13 0x0d
+#define B14 0x0e
+#define B15 0x0f
 
 //-------------------------Port C CRH Pinout---------------
 
-#define C13 0x25
-#define C14 0x26
-#define C15 0x27
+#define C13 0x0d
+#define C14 0x0e
+#define C15 0x0f
 
 
 
@@ -102,7 +103,7 @@ typedef enum
 //Input Output Declaration
 //-------------------------------------------
 
-	void PinMode( uint16_t pinNumber, uint16_t pinMode); 						//GPIO init 
+	void GPIO_PinMode(GPIO_TypeDef *pGPIOx, uint16_t pinNumber, uint16_t pinMode); 						//GPIO init 
 	
 	void GPIO_ResetPort(GPIO_TypeDef *pGPIOx); 																																					//GPIO DE init 
 	
@@ -110,11 +111,11 @@ typedef enum
 //Port - Pin Read Write
 //-------------------------------------------
 
-	bool DigitalRead(uint16_t pinNumber,bool Value); 																								//Read state of GPIO pin
+	bool GPIO_DigitalRead(GPIO_TypeDef *pGPIOx,uint16_t pinNumber); 																								//Read state of GPIO pin
 	
 	uint16_t GPIO_DigitalReadPort(GPIO_TypeDef *pGPIOx);																															//Read state of GPIO port
 	
-	void DigitalWrite(uint16_t pinNumber, bool Value);																		//Write to GPIO pin
+	void GPIO_DigitalWrite(GPIO_TypeDef *pGPIOx,uint16_t PinNumber, bool Value);																		//Write to GPIO pin
 	
 	void GPIO_DigitalWritePort(GPIO_TypeDef *pGPIOx,uint16_t Value);																									//Write to GPIO port
 	
