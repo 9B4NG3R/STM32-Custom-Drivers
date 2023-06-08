@@ -1,7 +1,7 @@
 #include "stm32f10x.h"                  // Device header
-#include "STM32toArduinoHeader.h"                 // Device header
+#include "PrviProjekat.h"                 // Device header
 
-//This cpp together with it's Header file is used to program STM32 just like an Arduino(Instead of typing GPIOA and all that just type pinMode(1,OUTPUT) and you're done
+
 	void GPIO_ClockCtrl(GPIO_TypeDef *pGPIOx, uint8_t EnOrDi)
 {
 	if(EnOrDi==ENABLE)
@@ -36,106 +36,98 @@ else if(EnOrDi==DISABLE) {
 }
 }
 
-void PinMode( uint16_t pinNumber, uint16_t pinMode)
+void GPIO_PinMode(GPIO_TypeDef *pGPIOx, uint16_t pinNumber, uint16_t pinMode)
 {
-	if (pinNumber<=15 && pinMode==OUTPUT)
+	if (pinMode==OUTPUT) 
 	{
-		RCC->APB2ENR |= (1<<2);
-		if(pinNumber<8)
+	if (pGPIOx == GPIOA)
 		{
-		GPIOA->CRL |=(1<<pinNumber*4);
-			GPIOA->CRL |=(1<<(pinNumber*4)+1);
-			GPIOA->CRL &=~(1<<(pinNumber*4)+2);
-			GPIOA->CRL&=~(1<<(pinNumber*4)+3);
+			RCC->APB2ENR |= (1<<2);
 			
+			if (pinNumber==0)
+			{
+				GPIOA->CRL |=0X0011 ;
 		}
-		else if (pinNumber>7 && pinMode==OUTPUT)
+			else if (pinNumber==1)
+			{
+				GPIOA->CRL |= A1;
+		}
+			else if (pinNumber==2)
+			{
+				GPIOA->CRL |= A2;
+		}
+			else if (pinNumber==3)
+			{
+				GPIOA->CRL |= A3;
+		}
+			else if (pinNumber==4)
+			{
+				GPIOA->CRL |= A4;
+		}
+			else if (pinNumber==5)
+			{
+				GPIOA->CRL |= A5;
+		}
+			else if (pinNumber==6)
+			{
+				GPIOA->CRL |= A6;
+		}
+			else if (pinNumber==7)
+			{
+				GPIOA->CRL |= A7;
+		}
+	}
+		else if(pinMode==INPUT)
 		{
-		GPIOA->CRH |=(1<<(pinNumber%8)*4);
-			GPIOA->CRH |=(1<<((pinNumber%8)*4)+1);
-			GPIOA->CRH &=~(1<<((pinNumber%8)*4)+2);
-			GPIOA->CRH &=~(1<<((pinNumber%8)*4)+3);
+			if (pinNumber==0)
+			{
+				GPIOA->CRL |= A0;
+		}
+			else if (pinNumber==1)
+			{
+				GPIOA->CRL |= A1;
+		}
+			else if (pinNumber==2)
+			{
+				GPIOA->CRL |= A2;
+		}
+			else if (pinNumber==3)
+			{
+				GPIOA->CRL |= A3;
+		}
+			else if (pinNumber==4)
+			{
+				GPIOA->CRL |= A4;
+		}
+			else if (pinNumber==5)
+			{
+				GPIOA->CRL |= A5;
+		}
+			else if (pinNumber==6)
+			{
+				GPIOA->CRL |= A6;
+		}
+			else if (pinNumber==7)
+			{
+				GPIOA->CRL |= A7;
 		}
 			
-			
-	}
-	if (pinNumber>15 && pinNumber<32 &&  pinMode==OUTPUT)
-	{
-	RCC->APB2ENR |= (1<<3);
-		if(pinNumber<24)
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+else if (pGPIOx == GPIOB)
 		{
-		GPIOB->CRL |=(1<<(pinNumber%16)*4);
-			GPIOB->CRL |=(1<<((pinNumber%16)*4)+1);
-			GPIOB->CRL &=~(1<<((pinNumber%16)*4)+2);
-			GPIOB->CRL&=~(1<<((pinNumber%16)*4)+3);
-			
+			RCC->APB2ENR |= (1<<3);
 		}
-		else if (pinNumber>23 &&  pinMode==OUTPUT)
+		else if(pGPIOx == GPIOC)
 		{
-		GPIOB->CRH |=(1<<(pinNumber%24)*4);
-			GPIOB->CRH |=(1<<((pinNumber%24)*4)+1);
-			GPIOB->CRH &=~(1<<((pinNumber%24)*4)+2);
-			GPIOB->CRH&=~(1<<((pinNumber%24)*4)+3);
+			RCC->APB2ENR |= (1<<4);
 		}
-		
 	}
-	if (pinNumber>=32 &&  pinMode==OUTPUT)
-	{
-	RCC->APB2ENR |= (1<<4);
-		GPIOC->CRH |=(1<<(pinNumber%32)*4);
-		GPIOC->CRH |=(1<<((pinNumber%32)*4)+1);
-		GPIOC->CRH &=~(1<<((pinNumber%32)*4)+2);
-		GPIOC->CRH &=~(1<<((pinNumber%32)*4)+3);
-		
-	}
-	
-	
-		}
-
-		void DigitalWrite(uint16_t pinNumber, bool Value)
-		{
-			if (pinNumber<=15 && Value==true)
-	{
-		GPIOA->ODR |= (1<<pinNumber);
-			
-		}
-	else if (pinNumber<=15 && Value==false)
-	{
-		GPIOA->ODR &=~ (1<<pinNumber);
-	}
-		
-			
-			
-	
-	if (pinNumber>15 && pinNumber<32 && Value==true)
-	{
-		GPIOB->ODR |= (1<<(pinNumber%8));
-			
-		}
-	else if (pinNumber>15 && pinNumber<32 && Value==false)
-	{
-		GPIOB->ODR &=~ (1<<(pinNumber%8));
-			
-		}
-		
-	
-	if (pinNumber>=32 &&  Value==true)
-	{
-		GPIOC->ODR |= (1<<(pinNumber%32));
-		
-	}
-else if (pinNumber>=32 &&  Value==false)
-	{
-		GPIOC->ODR &=~ (1<<(pinNumber%32));
-		
-	}
-	
-		}
-		
-
-		
-		
-		
-		
-	
-
+}
